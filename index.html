@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Disvical Snipe Services</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Inter", sans-serif;
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
+    cursor:none;
+}
+
+/* GRID */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size:55px 55px;
+    opacity:0.35;
+    z-index:1;
+    pointer-events:none;
+    animation:gridMove 2s linear infinite;
+}
+
+@keyframes gridMove{
+    from{background-position:0 0;}
+    to{background-position:0 160px;}
+}
+
+/* PARTICLES */
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+}
+
+/* CURSOR */
+#cursorTrail{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    pointer-events:none;
+}
+
+/* HERO */
+.hero{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:80px;
+    padding:40px;
+}
+
+.hero-right{
+    display:flex;
+    align-items:center;
+    gap:50px;
+}
+
+/* SCREEN */
+.screen{
+    width:620px;
+    height:380px;
+    background:rgba(15,15,15,0.85);
+    border:1px solid #ff4fa3;
+    border-radius:20px;
+    box-shadow:0 0 40px rgba(255,79,163,0.25);
+    padding:22px;
+    backdrop-filter: blur(10px);
+}
+
+/* PANELS */
+.fake-ui{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-top:10px;
+}
+
+.panel{
+    height:140px;
+    background:rgba(25,25,25,0.75);
+    border-radius:14px;
+    border:1px solid rgba(255,79,163,0.25);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    font-family:"Orbitron", sans-serif;
+    font-size:15px;
+
+    color:#ffd1e8;
+    text-shadow:0 0 10px #ff4fa3,0 0 25px #ff4fa3;
+
+    transition:0.3s ease;
+    animation:float 3s ease-in-out infinite;
+    cursor:pointer;
+}
+
+.panel:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 0 30px rgba(255,79,163,0.4);
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-6px);}
+}
+
+/* IMAGE */
+.side-image{
+    width:380px;
+    height:380px;
+    border-radius:22px;
+    overflow:hidden;
+}
+
+.side-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* MODAL */
+#aboutModal{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+
+    width:520px;
+    height:440px;
+
+    background:rgba(15,15,15,0.95);
+    border:1px solid rgba(255,79,163,0.4);
+    border-radius:14px;
+
+    padding:16px;
+    z-index:999999;
+
+    box-shadow:0 0 35px rgba(255,79,163,0.25);
+
+    transform:translateY(20px);
+    opacity:0;
+    pointer-events:none;
+    transition:0.3s ease;
+
+    display:flex;
+    flex-direction:column;
+}
+
+#aboutModal.active{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+}
+
+#modalTitle{
+    font-family:Orbitron;
+    font-size:18px;
+    color:#ff4fa3;
+    margin-bottom:10px;
+}
+
+#aboutText{
+    flex:1;
+    overflow:auto;
+    font-size:14px;
+    line-height:1.6;
+    color:#ffd1e8;
+    white-space:pre-line;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+}
+
+#langSelect{
+    background:transparent;
+    border:1px solid rgba(255,79,163,0.4);
+    color:white;
+    font-size:12px;
+    padding:6px;
+    border-radius:8px;
+}
+
+button{
+    background:transparent;
+    border:1px solid rgba(255,79,163,0.4);
+    color:#fff;
+    padding:6px 10px;
+    font-size:12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.price-btn{
+    margin-top:10px;
+    display:inline-block;
+    padding:6px 10px;
+    border:1px solid #ff4fa3;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+    color:#ffd1e8;
+    text-shadow:0 0 10px #ff4fa3;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+<canvas id="cursorTrail"></canvas>
+
+<section class="hero">
+
+<div class="hero-right">
+
+<div class="screen">
+<div class="fake-ui">
+
+<!-- YOUTUBE -->
+<div class="panel" onclick="window.open('https://www.youtube.com/@disvical','_blank')">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2">
+<polygon points="5 3 19 12 5 21 5 3"></polygon>
+</svg>
+YouTube
+</div>
+
+<!-- ABOUT -->
+<div class="panel" onclick="openAbout()">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2">
+<circle cx="12" cy="7" r="4"></circle>
+<path d="M5.5 21a8.38 8.38 0 0 1 13 0"></path>
+</svg>
+About
+</div>
+
+<!-- DISCORD -->
+<div class="panel" onclick="window.open('https://discord.gg/2ERVfhzzZr','_blank')">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2">
+<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+</svg>
+Discord
+</div>
+
+<!-- ROBLOX -->
+<div class="panel" onclick="window.open('https://www.roblox.com/pt/users/4370995126','_blank')">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2">
+<rect x="3" y="3" width="18" height="14" rx="2"></rect>
+<path d="M8 21l4-4 4 4"></path>
+</svg>
+Roblox
+</div>
+
+</div>
+</div>
+
+<div class="side-image">
+<img src="shidou.png">
+</div>
+
+</div>
+
+</section>
+
+<!-- MODAL -->
+<div id="aboutModal">
+    <div id="modalTitle">About me</div>
+
+    <div id="aboutText"></div>
+
+    <div class="modal-buttons">
+        <select id="langSelect">
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+            <option value="kr">한국어</option>
+        </select>
+
+        <button onclick="closeAbout()">Close</button>
+    </div>
+</div>
+
+<script>
+const modal=document.getElementById("aboutModal");
+const text=document.getElementById("aboutText");
+const select=document.getElementById("langSelect");
+const title=document.getElementById("modalTitle");
+
+const aboutData={
+en:`Hi, I'm Disvical, nice to meet you!
+
+I'm a high-level sniper and I finish my snipes in 2 days or less.
+
+Discord @disvical`,
+
+pt:`Olá, eu sou o Disvical, prazer em te conhecer!
+
+Sou um sniper de alto nível e finalizo meus snipes em 2 dias ou menos.
+
+Discord @disvical`,
+
+kr:`안녕하세요, 저는 Disvical입니다.
+
+빠르게 작업합니다.
+
+Discord @disvical`
+};
+
+const pricesText=`--- Robux Only ---
+
+Free Category:
+Glitch Snipe: 250+ HPs (500+ for priority)
+~ 750 if less than 250 HPs
+
+Dreamspace Snipe: 250+ HPs (500+ for priority)
+~ 750 if less than 250 HPs
+
+Paid Category:
+Singularity Snipe:
+~ 200 if less than 200 HPs
+
+Cyberspace Snipe:
+Not available yet
+
+Mari Snipe:
+20 = Void Coin (After tax)
+10 = Lucky Penny (After tax)
+
+Priority Category:
+1000 = Instant Snipe
+
+Expect to have your snipe done in 1-2 days
+I usually finish a singularity snipe in less than 1 hour
+Singularity snipes will always have priority`;
+
+function openAbout(){
+modal.classList.add("active");
+setLang(select.value);
+}
+
+function closeAbout(){
+modal.classList.remove("active");
+}
+
+function setLang(lang){
+text.innerHTML = aboutData[lang] + `<br><span class="price-btn" onclick="togglePrices()">Prices</span>`;
+title.innerText="About me";
+}
+
+function togglePrices(){
+text.innerText=pricesText;
+title.innerText="Prices";
+}
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let particles=[];
+
+for(let i=0;i<70;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+dx:(Math.random()-0.5)*0.5,
+dy:(Math.random()-0.5)*0.5
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+for(let p of particles){
+p.x+=p.dx;
+p.y+=p.dy;
+
+if(p.x<0||p.x>canvas.width)p.dx*=-1;
+if(p.y<0||p.y>canvas.height)p.dy*=-1;
+
+ctx.fillStyle="rgba(255,79,163,0.5)";
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+}
+
+requestAnimationFrame(animate);
+}
+animate();
+
+/* CURSOR */
+const tcanvas=document.getElementById("cursorTrail");
+const tctx=tcanvas.getContext("2d");
+
+tcanvas.width=innerWidth;
+tcanvas.height=innerHeight;
+
+let points=[];
+let mouse={x:innerWidth/2,y:innerHeight/2};
+
+document.addEventListener("mousemove",e=>{
+mouse.x=e.clientX;
+mouse.y=e.clientY;
+});
+
+function draw(){
+tctx.clearRect(0,0,tcanvas.width,tcanvas.height);
+
+points.push({...mouse});
+if(points.length>20)points.shift();
+
+for(let i=0;i<points.length;i++){
+let p=points[i];
+let a=i/points.length;
+
+tctx.beginPath();
+tctx.fillStyle=`rgba(255,79,163,${a})`;
+tctx.shadowBlur=20;
+tctx.shadowColor="#ff4fa3";
+tctx.arc(p.x,p.y,5,0,Math.PI*2);
+tctx.fill();
+}
+
+requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
