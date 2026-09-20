@@ -19,6 +19,8 @@
     --white:#ffffff;
 }
 
+html,body{height:100%;}
+
 body{
     font-family:"Inter",sans-serif;
     background:#000;
@@ -35,6 +37,7 @@ body{
     inset:0;
     z-index:0;
     overflow:hidden;
+    pointer-events:none;
 }
 
 .bg::before{
@@ -55,7 +58,6 @@ body{
     66%{transform:translate(-8%,8%) scale(1.1);}
 }
 
-/* ===== GRID ===== */
 .bg::after{
     content:"";
     position:absolute;
@@ -66,6 +68,7 @@ body{
     background-size:50px 50px;
     animation:gridMove 4s linear infinite;
     mask-image:radial-gradient(ellipse at center, black 20%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse at center, black 20%, transparent 80%);
 }
 
 @keyframes gridMove{
@@ -79,7 +82,7 @@ body{
     z-index:1;
     pointer-events:none;
 }
-#cursorTrail{z-index:9999;}
+#cursorTrail{z-index:99999;}
 
 /* ===== HERO ===== */
 .hero{
@@ -94,7 +97,7 @@ body{
     gap:60px;
 }
 
-/* ===== TÍTULO GIGANTE ===== */
+/* ===== TÍTULO ===== */
 .title{
     text-align:center;
     position:relative;
@@ -142,7 +145,6 @@ body{
     50%{opacity:1;letter-spacing:28px;}
 }
 
-/* LINHAS DECORATIVAS */
 .title::before,
 .title::after{
     content:"";
@@ -186,10 +188,8 @@ body{
     padding:30px;
     transition:transform .5s cubic-bezier(.4,0,.2,1), border-color .4s, box-shadow .5s;
     backdrop-filter:blur(20px);
-    transform-style:preserve-3d;
 }
 
-/* Borda animada */
 .card::before{
     content:"";
     position:absolute;
@@ -206,21 +206,29 @@ body{
     to{transform:rotate(360deg);}
 }
 
-/* Efeito de luz que segue o mouse */
+/* GLOW CORRIGIDO - preenche todo o card */
 .card .glow{
     position:absolute;
-    width:300px;
-    height:300px;
-    border-radius:50%;
-    background:radial-gradient(circle, rgba(255,79,163,.4), transparent 70%);
+    inset:0;
+    border-radius:24px;
+    background:radial-gradient(circle 300px at var(--mx,50%) var(--my,50%),
+        rgba(255,79,163,.65) 0%,
+        rgba(255,79,163,.35) 30%,
+        rgba(255,79,163,.1) 55%,
+        transparent 80%);
     pointer-events:none;
     opacity:0;
-    transform:translate(-50%,-50%);
-    transition:opacity .3s;
-    filter:blur(30px);
+    transition:opacity .35s ease;
+    z-index:0;
+    filter:blur(6px);
 }
 
 .card:hover .glow{opacity:1;}
+
+.card > *:not(.glow){
+    position:relative;
+    z-index:1;
+}
 
 .card:hover{
     transform:translateY(-12px) scale(1.03);
@@ -236,7 +244,6 @@ body{
     transform:translateY(-6px) scale(.98);
 }
 
-/* ÍCONE */
 .card .icon{
     width:80px;
     height:80px;
@@ -269,7 +276,6 @@ body{
     stroke:#ff8ac4;
 }
 
-/* TEXTO DO CARD */
 .card .name{
     font-family:"Orbitron",sans-serif;
     font-size:18px;
@@ -300,7 +306,6 @@ body{
     color:rgba(255,255,255,.8);
 }
 
-/* LINHA DECORATIVA NO CARD */
 .card .line{
     position:absolute;
     bottom:0;
@@ -310,12 +315,11 @@ body{
     height:3px;
     background:linear-gradient(90deg, transparent, #ff4fa3, transparent);
     transition:width .5s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 20px #ff4fa3;
+    z-index:2;
 }
 
-.card:hover .line{
-    width:80%;
-    box-shadow:0 0 20px #ff4fa3;
-}
+.card:hover .line{width:80%;}
 
 /* ===== MODAL ===== */
 #aboutModal{
@@ -597,6 +601,7 @@ button:active{transform:translateY(0) scale(.96);}
 </div>
 
 <script>
+/* ===== MODAL ===== */
 const modal = document.getElementById("aboutModal");
 const text = document.getElementById("aboutText");
 const select = document.getElementById("langSelect");
@@ -631,14 +636,16 @@ function togglePrices(){
 
 select.addEventListener('change', () => setLang(select.value));
 
-/* CARDS - Efeito de luz + clique */
+/* ===== CARDS ===== */
 document.querySelectorAll('.card').forEach(card => {
     const glow = card.querySelector('.glow');
 
     card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
-        glow.style.left = (e.clientX - r.left) + 'px';
-        glow.style.top = (e.clientY - r.top) + 'px';
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        glow.style.setProperty('--mx', x + '%');
+        glow.style.setProperty('--my', y + '%');
     });
 
     card.addEventListener('click', () => {
@@ -653,7 +660,7 @@ document.querySelectorAll('.card').forEach(card => {
     });
 });
 
-/* PARTÍCULAS */
+/* ===== PARTÍCULAS ===== */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = innerWidth; canvas.height = innerHeight;
@@ -673,6 +680,7 @@ for (let i = 0; i < 100; i++) {
 
 function animateParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
+
     for (let i=0;i<particles.length;i++){
         for (let j=i+1;j<particles.length;j++){
             const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
@@ -687,6 +695,7 @@ function animateParticles(){
             }
         }
     }
+
     for (let p of particles){
         p.x+=p.dx; p.y+=p.dy;
         if (p.x<0||p.x>canvas.width)p.dx*=-1;
@@ -705,7 +714,7 @@ function animateParticles(){
 }
 animateParticles();
 
-/* CURSOR */
+/* ===== CURSOR ===== */
 const tcanvas=document.getElementById("cursorTrail");
 const tctx=tcanvas.getContext("2d");
 tcanvas.width=innerWidth; tcanvas.height=innerHeight;
@@ -713,9 +722,16 @@ tcanvas.width=innerWidth; tcanvas.height=innerHeight;
 let points=[];
 let mouse={x:innerWidth/2,y:innerHeight/2};
 let bursts=[];
+let mouseVisible = false;
 
+// Mostra o cursor assim que o mouse se mexe
 document.addEventListener("mousemove", e => {
     mouse.x=e.clientX; mouse.y=e.clientY;
+    if (!mouseVisible) mouseVisible = true;
+});
+
+document.addEventListener("mouseleave", () => {
+    mouseVisible = false;
 });
 
 document.addEventListener("mousedown", () => {
@@ -731,6 +747,11 @@ document.addEventListener("mousedown", () => {
 
 function drawCursor(){
     tctx.clearRect(0,0,tcanvas.width,tcanvas.height);
+
+    if (!mouseVisible) {
+        requestAnimationFrame(drawCursor);
+        return;
+    }
 
     points.push({x:mouse.x,y:mouse.y});
     if (points.length>25)points.shift();
@@ -760,6 +781,7 @@ function drawCursor(){
         tctx.fill();
     }
 
+    // Cursor central
     tctx.beginPath();
     tctx.fillStyle="#fff";
     tctx.shadowBlur=30;
@@ -767,6 +789,7 @@ function drawCursor(){
     tctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
     tctx.fill();
 
+    // Anel externo
     tctx.beginPath();
     tctx.strokeStyle="rgba(255,79,163,.7)";
     tctx.lineWidth=1.5;
