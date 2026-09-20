@@ -31,7 +31,6 @@ body{
     position:relative;
 }
 
-/* ===== BACKGROUND ANIMADO ===== */
 .bg{
     position:fixed;
     inset:0;
@@ -76,15 +75,20 @@ body{
     to{background-position:50px 50px;}
 }
 
-#particles,#cursorTrail{
+#particles{
     position:fixed;
     inset:0;
     z-index:1;
     pointer-events:none;
 }
-#cursorTrail{z-index:99999;}
 
-/* ===== HERO ===== */
+#cursorTrail{
+    position:fixed;
+    inset:0;
+    z-index:1000000;
+    pointer-events:none;
+}
+
 .hero{
     position:relative;
     z-index:2;
@@ -97,7 +101,6 @@ body{
     gap:60px;
 }
 
-/* ===== TÍTULO ===== */
 .title{
     text-align:center;
     position:relative;
@@ -157,7 +160,6 @@ body{
 .title::before{left:-100px;}
 .title::after{right:-100px;background:linear-gradient(90deg,#ff4fa3,transparent);}
 
-/* ===== CARDS ===== */
 .cards{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -206,7 +208,6 @@ body{
     to{transform:rotate(360deg);}
 }
 
-/* GLOW CORRIGIDO - preenche todo o card */
 .card .glow{
     position:absolute;
     inset:0;
@@ -321,7 +322,6 @@ body{
 
 .card:hover .line{width:80%;}
 
-/* ===== MODAL ===== */
 #aboutModal{
     position:fixed;
     top:50%;
@@ -495,6 +495,8 @@ button:active{transform:translateY(0) scale(.96);}
     text-shadow:0 0 15px #ff4fa3;
     transition:all .3s;
     font-family:"Inter",sans-serif;
+    position:relative;
+    z-index:1000001;
 }
 
 .price-btn:hover{
@@ -503,7 +505,6 @@ button:active{transform:translateY(0) scale(.96);}
     transform:translateY(-3px) scale(1.05);
 }
 
-/* ===== RESPONSIVO ===== */
 @media (max-width:1000px){
     .cards{grid-template-columns:repeat(2,1fr);}
     .title::before,.title::after{display:none;}
@@ -601,7 +602,6 @@ button:active{transform:translateY(0) scale(.96);}
 </div>
 
 <script>
-/* ===== MODAL ===== */
 const modal = document.getElementById("aboutModal");
 const text = document.getElementById("aboutText");
 const select = document.getElementById("langSelect");
@@ -636,7 +636,6 @@ function togglePrices(){
 
 select.addEventListener('change', () => setLang(select.value));
 
-/* ===== CARDS ===== */
 document.querySelectorAll('.card').forEach(card => {
     const glow = card.querySelector('.glow');
 
@@ -660,7 +659,6 @@ document.querySelectorAll('.card').forEach(card => {
     });
 });
 
-/* ===== PARTÍCULAS ===== */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = innerWidth; canvas.height = innerHeight;
@@ -680,7 +678,6 @@ for (let i = 0; i < 100; i++) {
 
 function animateParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
     for (let i=0;i<particles.length;i++){
         for (let j=i+1;j<particles.length;j++){
             const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
@@ -695,7 +692,6 @@ function animateParticles(){
             }
         }
     }
-
     for (let p of particles){
         p.x+=p.dx; p.y+=p.dy;
         if (p.x<0||p.x>canvas.width)p.dx*=-1;
@@ -714,7 +710,6 @@ function animateParticles(){
 }
 animateParticles();
 
-/* ===== CURSOR ===== */
 const tcanvas=document.getElementById("cursorTrail");
 const tctx=tcanvas.getContext("2d");
 tcanvas.width=innerWidth; tcanvas.height=innerHeight;
@@ -724,7 +719,6 @@ let mouse={x:innerWidth/2,y:innerHeight/2};
 let bursts=[];
 let mouseVisible = false;
 
-// Mostra o cursor assim que o mouse se mexe
 document.addEventListener("mousemove", e => {
     mouse.x=e.clientX; mouse.y=e.clientY;
     if (!mouseVisible) mouseVisible = true;
@@ -781,7 +775,6 @@ function drawCursor(){
         tctx.fill();
     }
 
-    // Cursor central
     tctx.beginPath();
     tctx.fillStyle="#fff";
     tctx.shadowBlur=30;
@@ -789,7 +782,6 @@ function drawCursor(){
     tctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
     tctx.fill();
 
-    // Anel externo
     tctx.beginPath();
     tctx.strokeStyle="rgba(255,79,163,.7)";
     tctx.lineWidth=1.5;
