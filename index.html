@@ -10,15 +10,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
-:root{
-    --pink:#ff4fa3;
-    --pink-light:#ff8ac4;
-    --pink-dark:#c7347c;
-    --black:#000000;
-    --gray:#141414;
-    --white:#ffffff;
-}
-
 html,body{height:100%;}
 
 body{
@@ -38,56 +29,44 @@ body{
     overflow:hidden;
     pointer-events:none;
 }
-
 .bg::before{
     content:"";
     position:absolute;
     inset:-50%;
     background:
-        radial-gradient(circle at 30% 40%, rgba(255,79,163,.32), transparent 40%),
-        radial-gradient(circle at 70% 60%, rgba(199,52,124,.32), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,.04), transparent 60%);
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,.08), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,.05), transparent 40%);
     animation:bgMove 15s ease-in-out infinite;
     filter:blur(60px);
 }
-
 @keyframes bgMove{
     0%,100%{transform:translate(0,0) scale(1);}
     33%{transform:translate(10%,-5%) scale(1.15);}
     66%{transform:translate(-8%,8%) scale(1.1);}
 }
-
 .bg::after{
     content:"";
     position:absolute;
     inset:0;
     background-image:
-        linear-gradient(rgba(255,79,163,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,79,163,.06) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
     background-size:50px 50px;
     animation:gridMove 4s linear infinite;
     mask-image:radial-gradient(ellipse at center, black 20%, transparent 80%);
     -webkit-mask-image:radial-gradient(ellipse at center, black 20%, transparent 80%);
 }
-
 @keyframes gridMove{
     from{background-position:0 0;}
     to{background-position:50px 50px;}
 }
 
-#particles{
-    position:fixed;
-    inset:0;
-    z-index:1;
-    pointer-events:none;
-}
-
 #cursorTrail{
     position:fixed;
     inset:0;
-    z-index:2147483647;
     pointer-events:none;
 }
+#cursorTrail{z-index:2147483647;}
 
 .hero{
     position:relative;
@@ -97,8 +76,8 @@ body{
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    padding:60px 30px;
-    gap:60px;
+    padding:60px 30px 80px;
+    gap:55px;
 }
 
 .title{
@@ -106,48 +85,46 @@ body{
     position:relative;
     animation:titleIn 1.2s cubic-bezier(.4,0,.2,1) both;
 }
-
 @keyframes titleIn{
     from{opacity:0;transform:translateY(-50px) scale(.9);}
     to{opacity:1;transform:translateY(0) scale(1);}
 }
-
 .title h1{
     font-family:"Orbitron",sans-serif;
     font-size:clamp(48px,10vw,140px);
     font-weight:900;
     letter-spacing:-2px;
     line-height:.9;
-    background:linear-gradient(180deg,#fff 0%,#ff8ac4 40%,#ff4fa3 70%,#c7347c 100%);
+    background:linear-gradient(180deg,#fff 0%,#999 50%,#333 100%);
     -webkit-background-clip:text;
     background-clip:text;
     -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 0 32px rgba(255,79,163,.64)) drop-shadow(0 0 64px rgba(255,79,163,.4));
+    filter:drop-shadow(0 0 32px rgba(255,255,255,.4)) drop-shadow(0 0 64px rgba(255,255,255,.2));
     text-transform:uppercase;
     animation:titleGlow 3s ease-in-out infinite;
 }
-
 @keyframes titleGlow{
-    0%,100%{filter:drop-shadow(0 0 32px rgba(255,79,163,.64)) drop-shadow(0 0 64px rgba(255,79,163,.4));}
-    50%{filter:drop-shadow(0 0 48px rgba(255,79,163,.8)) drop-shadow(0 0 96px rgba(255,79,163,.56));}
+    0%,100%{filter:drop-shadow(0 0 32px rgba(255,255,255,.4)) drop-shadow(0 0 64px rgba(255,255,255,.2));}
+    50%{filter:drop-shadow(0 0 48px rgba(255,255,255,.55)) drop-shadow(0 0 96px rgba(255,255,255,.3));}
 }
-
 .title .sub{
     font-size:14px;
     letter-spacing:20px;
-    color:#ff8ac4;
     text-transform:uppercase;
     font-weight:300;
     margin-top:20px;
     padding-left:20px;
-    animation:subPulse 2s ease-in-out infinite;
+    background:linear-gradient(90deg, #000 0%, #fff 50%, #000 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:gradientShift 6s ease-in-out infinite;
 }
-
-@keyframes subPulse{
-    0%,100%{opacity:.6;letter-spacing:20px;}
-    50%{opacity:1;letter-spacing:28px;}
+@keyframes gradientShift{
+    0%,100%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
 }
-
 .title::before,
 .title::after{
     content:"";
@@ -155,10 +132,10 @@ body{
     top:50%;
     width:80px;
     height:1px;
-    background:linear-gradient(90deg,transparent,#ff4fa3);
+    background:linear-gradient(90deg,transparent,#fff);
 }
 .title::before{left:-100px;}
-.title::after{right:-100px;background:linear-gradient(90deg,#ff4fa3,transparent);}
+.title::after{right:-100px;background:linear-gradient(90deg,#fff,transparent);}
 
 .cards{
     display:grid;
@@ -168,7 +145,6 @@ body{
     width:100%;
     animation:cardsIn 1s ease .4s both;
 }
-
 @keyframes cardsIn{
     from{opacity:0;transform:translateY(40px);}
     to{opacity:1;transform:translateY(0);}
@@ -179,8 +155,6 @@ body{
     aspect-ratio:1/1.15;
     border-radius:24px;
     background:linear-gradient(145deg, rgba(30,30,30,.7), rgba(10,10,10,.9));
-    border:1px solid rgba(255,79,163,.2);
-    overflow:hidden;
     cursor:pointer;
     display:flex;
     flex-direction:column;
@@ -188,24 +162,54 @@ body{
     justify-content:center;
     gap:18px;
     padding:30px;
-    transition:transform .5s cubic-bezier(.4,0,.2,1), border-color .4s, box-shadow .5s;
+    transition:transform .5s cubic-bezier(.4,0,.2,1), box-shadow .5s;
     backdrop-filter:blur(20px);
+    overflow:hidden;
+    isolation:isolate;
 }
 
 .card::before{
     content:"";
     position:absolute;
-    inset:-2px;
-    border-radius:26px;
-    background:conic-gradient(from 0deg, transparent, #ff4fa3, transparent 30%, #ff4fa3, transparent 60%);
+    top:50%;
+    left:50%;
+    width:200%;
+    height:200%;
+    transform:translate(-50%,-50%);
+    background:conic-gradient(from 0deg,
+        #000 0deg,
+        #333 30deg,
+        #666 60deg,
+        #999 90deg,
+        #ccc 120deg,
+        #fff 150deg,
+        #fff 180deg,
+        #ccc 210deg,
+        #999 240deg,
+        #666 270deg,
+        #333 300deg,
+        #000 330deg,
+        #000 360deg);
     animation:rotateBorder 4s linear infinite;
     opacity:0;
-    transition:opacity .4s;
-    z-index:-1;
+    transition:opacity .5s ease;
+    pointer-events:none;
+    z-index:1;
 }
-
 @keyframes rotateBorder{
-    to{transform:rotate(360deg);}
+    from{transform:translate(-50%,-50%) rotate(0deg);}
+    to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+.card:hover::before{opacity:1;}
+
+.card::after{
+    content:"";
+    position:absolute;
+    inset:3px;
+    border-radius:21px;
+    background:linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    z-index:2;
+    pointer-events:none;
 }
 
 .card .glow{
@@ -214,42 +218,28 @@ body{
     left:0;
     width:100%;
     height:100%;
-    border-radius:50%;
+    border-radius:24px;
     background:radial-gradient(circle at var(--mx,50%) var(--my,50%),
-        rgba(255,79,163,.55) 0%,
-        rgba(255,79,163,.25) 25%,
-        rgba(255,79,163,.05) 50%,
-        transparent 70%);
+        rgba(255,255,255,.25) 0%,
+        rgba(255,255,255,.1) 25%,
+        transparent 60%);
     pointer-events:none;
     opacity:0;
     transition:opacity .35s ease;
-    z-index:0;
-    filter:blur(8px);
-    transform:scale(0);
-    transform-origin:center;
+    z-index:3;
+    filter:blur(6px);
 }
-
-.card:hover .glow{
-    opacity:1;
-    transform:scale(2.5);
-    border-radius:50%;
-}
+.card:hover .glow{opacity:1;}
 
 .card > *:not(.glow){
     position:relative;
-    z-index:1;
+    z-index:4;
 }
 
 .card:hover{
     transform:translateY(-12px) scale(1.03);
-    border-color:#ff4fa3;
-    box-shadow:
-        0 30px 60px rgba(255,79,163,.28),
-        inset 0 0 40px rgba(255,79,163,.08);
+    box-shadow:0 30px 60px rgba(255,255,255,.15);
 }
-
-.card:hover::before{opacity:1;}
-
 .card:active{
     transform:translateY(-6px) scale(.98);
 }
@@ -258,33 +248,27 @@ body{
     width:80px;
     height:80px;
     border-radius:50%;
-    background:linear-gradient(145deg, rgba(255,79,163,.2), rgba(199,52,124,.1));
-    border:1px solid rgba(255,79,163,.4);
+    background:linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    border:1px solid rgba(255,255,255,.3);
     display:flex;
     align-items:center;
     justify-content:center;
     transition:all .5s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 0 24px rgba(255,79,163,.16);
+    box-shadow:0 0 24px rgba(255,255,255,.1);
 }
-
 .card:hover .icon{
     transform:scale(1.15) rotate(-8deg);
-    background:linear-gradient(145deg, rgba(255,79,163,.4), rgba(199,52,124,.2));
-    box-shadow:0 0 40px rgba(255,79,163,.48);
+    background:linear-gradient(145deg, rgba(255,255,255,.25), rgba(255,255,255,.1));
+    box-shadow:0 0 40px rgba(255,255,255,.35);
 }
-
 .card .icon svg{
     width:40px;
     height:40px;
     stroke:#fff;
-    filter:drop-shadow(0 0 8px rgba(255,79,163,.64));
+    filter:drop-shadow(0 0 8px rgba(255,255,255,.5));
     transition:transform .5s ease;
 }
-
-.card:hover .icon svg{
-    transform:scale(1.1);
-    stroke:#ff8ac4;
-}
+.card:hover .icon svg{transform:scale(1.1);}
 
 .card .name{
     font-family:"Orbitron",sans-serif;
@@ -293,108 +277,65 @@ body{
     letter-spacing:4px;
     text-transform:uppercase;
     color:#fff;
-    text-shadow:0 0 12px rgba(255,79,163,.48);
+    text-shadow:0 0 12px rgba(255,255,255,.3);
     transition:all .4s;
 }
-
 .card:hover .name{
-    color:#ff8ac4;
-    text-shadow:0 0 20px rgba(255,79,163,.8);
+    text-shadow:0 0 20px rgba(255,255,255,.6);
     letter-spacing:6px;
 }
-
 .card .desc{
     font-size:11px;
     letter-spacing:3px;
-    color:rgba(255,255,255,.5);
+    color:rgba(255,255,255,.4);
     text-transform:uppercase;
     font-weight:300;
     transition:color .4s;
 }
+.card:hover .desc{color:rgba(255,255,255,.7);}
 
-.card:hover .desc{
-    color:rgba(255,255,255,.8);
-}
-
-.card .line{
-    position:absolute;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:0;
-    height:3px;
-    background:linear-gradient(90deg, transparent, #ff4fa3, transparent);
-    transition:width .5s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 0 16px #ff4fa3;
-    z-index:2;
-}
-
-.card:hover .line{width:80%;}
-
-/* ===== DIVISOR DECORATIVO ===== */
 .divider{
     position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
     width:100%;
-    max-width:900px;
-    padding:20px 0;
-    animation:dividerIn 1.2s ease .8s both;
+    max-width:1000px;
+    margin:20px auto 0;
+    padding:10px 0;
 }
-
-@keyframes dividerIn{
-    from{opacity:0;transform:scaleX(.5);}
-    to{opacity:1;transform:scaleX(1);}
-}
-
 .divider .line-seg{
     flex:1;
-    height:2px;
-    background:linear-gradient(90deg,
-        transparent 0%,
-        rgba(255,79,163,.3) 10%,
-        rgba(255,79,163,.7) 50%,
-        rgba(255,79,163,.3) 90%,
-        transparent 100%);
-    border-radius:2px;
-    box-shadow:0 0 12px rgba(255,79,163,.5);
-    position:relative;
+    height:3px;
+    background:linear-gradient(90deg,transparent 0%,#fff 50%,transparent 100%);
+    border-radius:3px;
+    box-shadow:
+        0 0 10px rgba(255,255,255,.7),
+        0 0 20px rgba(255,255,255,.4);
 }
-
-.divider .line-seg::after{
-    content:"";
-    position:absolute;
-    top:-1px;
-    left:0;
-    right:0;
-    height:4px;
-    background:linear-gradient(90deg,
-        transparent,
-        rgba(255,79,163,.3),
-        transparent);
-    filter:blur(4px);
-}
-
 .divider .star{
-    width:36px;
-    height:36px;
-    margin:0 20px;
+    width:44px;
+    height:44px;
+    margin:0 24px;
     flex-shrink:0;
-    filter:drop-shadow(0 0 15px rgba(255,79,163,.9));
+    display:flex;
+    align-items:center;
+    justify-content:center;
     animation:starPulse 3s ease-in-out infinite;
 }
-
 @keyframes starPulse{
-    0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 15px rgba(255,79,163,.9));}
-    50%{transform:scale(1.1) rotate(180deg);filter:drop-shadow(0 0 25px rgba(255,79,163,1));}
+    0%,100%{
+        transform:scale(1) rotate(0deg);
+        filter:drop-shadow(0 0 12px rgba(255,255,255,.8))
+               drop-shadow(0 0 24px rgba(255,255,255,.5));
+    }
+    50%{
+        transform:scale(1.15) rotate(180deg);
+        filter:drop-shadow(0 0 20px rgba(255,255,255,1))
+               drop-shadow(0 0 40px rgba(255,255,255,.7));
+    }
 }
-
-.divider .star svg{
-    width:100%;
-    height:100%;
-    display:block;
-}
+.divider .star svg{width:100%;height:100%;display:block;}
 
 #aboutModal{
     position:fixed;
@@ -406,18 +347,62 @@ body{
     height:520px;
     max-height:calc(100vh - 40px);
     background:rgba(10,10,15,.98);
-    border:1px solid rgba(255,79,163,.5);
     border-radius:24px;
     padding:30px;
     z-index:999999;
     box-shadow:
         0 30px 100px rgba(0,0,0,.8),
-        0 0 64px rgba(255,79,163,.32);
+        0 0 64px rgba(255,255,255,.1);
     opacity:0;
     pointer-events:none;
     transition:all .5s cubic-bezier(.4,0,.2,1);
     display:flex;
     flex-direction:column;
+    overflow:hidden;
+    isolation:isolate;
+}
+
+#aboutModal::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:200%;
+    height:200%;
+    transform:translate(-50%,-50%);
+    background:conic-gradient(from 0deg,
+        #000 0deg,
+        #333 30deg,
+        #666 60deg,
+        #999 90deg,
+        #ccc 120deg,
+        #fff 150deg,
+        #fff 180deg,
+        #ccc 210deg,
+        #999 240deg,
+        #666 270deg,
+        #333 300deg,
+        #000 330deg,
+        #000 360deg);
+    animation:rotateBorderModal 4s linear infinite;
+    opacity:0;
+    transition:opacity .5s ease;
+    pointer-events:none;
+    z-index:1;
+}
+@keyframes rotateBorderModal{
+    from{transform:translate(-50%,-50%) rotate(0deg);}
+    to{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+#aboutModal::after{
+    content:"";
+    position:absolute;
+    inset:3px;
+    border-radius:21px;
+    background:linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    z-index:2;
+    pointer-events:none;
 }
 
 #aboutModal.active{
@@ -425,23 +410,11 @@ body{
     opacity:1;
     pointer-events:auto;
 }
+#aboutModal.active::before{opacity:1;}
 
-#aboutModal::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:2px;
-    background:linear-gradient(90deg, transparent, #ff4fa3, #fff, #ff4fa3, transparent);
-    background-size:200% 100%;
-    animation:shimmer 2s linear infinite;
-    border-radius:24px 24px 0 0;
-}
-
-@keyframes shimmer{
-    0%{background-position:200% 0;}
-    100%{background-position:-200% 0;}
+#aboutModal > *{
+    position:relative;
+    z-index:3;
 }
 
 #modalTitle{
@@ -450,7 +423,7 @@ body{
     font-weight:900;
     letter-spacing:6px;
     text-transform:uppercase;
-    background:linear-gradient(135deg,#fff,#ff4fa3);
+    background:linear-gradient(135deg,#fff,#888);
     -webkit-background-clip:text;
     background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -459,14 +432,12 @@ body{
     align-items:center;
     gap:14px;
 }
-
 #modalTitle::after{
     content:"";
     flex:1;
     height:1px;
-    background:linear-gradient(90deg, #ff4fa3, transparent);
+    background:linear-gradient(90deg, #fff, transparent);
 }
-
 #aboutText{
     flex:1;
     overflow-y:auto;
@@ -475,11 +446,42 @@ body{
     color:#e8e8e8;
     white-space:pre-line;
     padding-right:10px;
+    display:flex;
+    flex-direction:column;
+}
+#aboutText::-webkit-scrollbar{width:6px;}
+#aboutText::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:3px;}
+#aboutText::-webkit-scrollbar-thumb{background:#fff;border-radius:3px;box-shadow:0 0 12px #fff;}
+
+#aboutText .text-content{flex:1;}
+
+#aboutText .price-btn-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top:24px;
+    padding-top:20px;
 }
 
-#aboutText::-webkit-scrollbar{width:6px;}
-#aboutText::-webkit-scrollbar-track{background:rgba(255,79,163,.05);border-radius:3px;}
-#aboutText::-webkit-scrollbar-thumb{background:#ff4fa3;border-radius:3px;box-shadow:0 0 12px #ff4fa3;}
+.price-btn{
+    display:inline-block;
+    padding:12px 32px;
+    background:linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.05));
+    border:1px solid #fff;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#fff;
+    transition:all .3s;
+    font-family:"Inter",sans-serif;
+}
+.price-btn:hover{
+    background:linear-gradient(135deg, rgba(255,255,255,.25), rgba(255,255,255,.1));
+    transform:translateY(-2px);
+}
 
 .modal-buttons{
     display:flex;
@@ -487,13 +489,13 @@ body{
     align-items:center;
     margin-top:20px;
     padding-top:20px;
-    border-top:1px solid rgba(255,79,163,.2);
+    border-top:1px solid rgba(255,255,255,.15);
     gap:12px;
 }
 
 #langSelect{
-    background:rgba(255,79,163,.1);
-    border:1px solid rgba(255,79,163,.4);
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.3);
     color:#fff;
     font-size:13px;
     padding:10px 16px;
@@ -503,17 +505,14 @@ body{
     font-family:"Inter",sans-serif;
     transition:all .3s;
 }
-
 #langSelect:hover{
-    border-color:#ff4fa3;
-    box-shadow:0 0 20px rgba(255,79,163,.32);
+    border-color:#fff;
 }
-
 #langSelect option{background:#141414;color:#fff;}
 
 button{
-    background:linear-gradient(135deg, rgba(255,79,163,.2), rgba(199,52,124,.1));
-    border:1px solid rgba(255,79,163,.5);
+    background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    border:1px solid rgba(255,255,255,.35);
     color:#fff;
     padding:10px 24px;
     font-size:13px;
@@ -524,69 +523,24 @@ button{
     cursor:pointer;
     font-family:"Inter",sans-serif;
     transition:all .3s cubic-bezier(.4,0,.2,1);
-    position:relative;
-    overflow:hidden;
 }
-
-button::before{
-    content:"";
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:0;
-    height:0;
-    background:radial-gradient(circle, rgba(255,79,163,.48), transparent);
-    transform:translate(-50%,-50%);
-    transition:all .6s ease;
-    border-radius:50%;
-    pointer-events:none;
-}
-
-button:hover::before{width:300px;height:300px;}
-
 button:hover{
-    border-color:#ff4fa3;
-    box-shadow:0 0 24px rgba(255,79,163,.48);
+    border-color:#fff;
     transform:translateY(-2px);
 }
-
 button:active{transform:translateY(0) scale(.96);}
-
-.price-btn{
-    display:inline-block;
-    margin-top:14px;
-    padding:10px 20px;
-    background:linear-gradient(135deg, rgba(255,79,163,.25), rgba(199,52,124,.15));
-    border:1px solid #ff4fa3;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    color:#fff;
-    text-shadow:0 0 12px #ff4fa3;
-    transition:all .3s;
-    font-family:"Inter",sans-serif;
-}
-
-.price-btn:hover{
-    background:linear-gradient(135deg, rgba(255,79,163,.5), rgba(199,52,124,.3));
-    box-shadow:0 0 32px rgba(255,79,163,.64);
-    transform:translateY(-3px) scale(1.05);
-}
 
 @media (max-width:1000px){
     .cards{grid-template-columns:repeat(2,1fr);}
     .title::before,.title::after{display:none;}
 }
-
 @media (max-width:560px){
     .cards{grid-template-columns:1fr;}
     .title h1{letter-spacing:-1px;}
     .title .sub{letter-spacing:10px;font-size:11px;}
     #aboutModal{height:80vh;padding:20px;}
-    .divider .star{width:26px;height:26px;margin:0 12px;}
+    .divider .star{width:30px;height:30px;margin:0 14px;}
+    .divider .line-seg{height:2px;}
 }
 </style>
 </head>
@@ -594,7 +548,6 @@ button:active{transform:translateY(0) scale(.96);}
 <body>
 
 <div class="bg"></div>
-<canvas id="particles"></canvas>
 <canvas id="cursorTrail"></canvas>
 
 <section class="hero">
@@ -609,62 +562,57 @@ button:active{transform:translateY(0) scale(.96);}
         <div class="card" data-link="https://www.youtube.com/@disvical">
             <div class="glow"></div>
             <div class="icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polygon points="5 3 19 12 5 21 5 3"></polygon>
                 </svg>
             </div>
             <div class="name">YouTube</div>
             <div class="desc">Subscribe</div>
-            <div class="line"></div>
         </div>
 
         <div class="card" data-action="about">
             <div class="glow"></div>
             <div class="icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="7" r="4"></circle>
                     <path d="M5.5 21a8.38 8.38 0 0 1 13 0"></path>
                 </svg>
             </div>
             <div class="name">About</div>
             <div class="desc">Who am I</div>
-            <div class="line"></div>
         </div>
 
         <div class="card" data-link="https://discord.gg/2ERVfhzzZr">
             <div class="glow"></div>
             <div class="icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
             </div>
             <div class="name">Discord</div>
             <div class="desc">Join Server</div>
-            <div class="line"></div>
         </div>
 
         <div class="card" data-link="https://www.roblox.com/pt/users/4370995126">
             <div class="glow"></div>
             <div class="icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#ff4fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="18" height="14" rx="2"></rect>
                     <path d="M8 21l4-4 4 4"></path>
                 </svg>
             </div>
             <div class="name">Roblox</div>
             <div class="desc">Profile</div>
-            <div class="line"></div>
         </div>
 
     </div>
 
-    <!-- DIVISOR DECORATIVO -->
     <div class="divider">
         <div class="line-seg"></div>
         <div class="star">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 10 C52 40 60 48 90 50 C60 52 52 60 50 90 C48 60 40 52 10 50 C40 48 48 40 50 10 Z"
-                      fill="#ffffff" stroke="#ff4fa3" stroke-width="1"/>
+                <path d="M50 8 C54 38 62 46 92 50 C62 54 54 62 50 92 C46 62 38 54 8 50 C38 46 46 38 50 8 Z"
+                      fill="#ffffff"/>
             </svg>
         </div>
         <div class="line-seg"></div>
@@ -679,7 +627,11 @@ button:active{transform:translateY(0) scale(.96);}
         <select id="langSelect">
             <option value="en">English</option>
             <option value="pt">Português</option>
+            <option value="es">Español</option>
+            <option value="de">Deutsch</option>
             <option value="kr">한국어</option>
+            <option value="jp">日本語</option>
+            <option value="cn">中文</option>
         </select>
         <button onclick="closeAbout()">Close</button>
     </div>
@@ -691,31 +643,92 @@ const text = document.getElementById("aboutText");
 const select = document.getElementById("langSelect");
 const title = document.getElementById("modalTitle");
 
-const aboutData = {
-    en:`Hi, I'm Disvical, nice to meet you!\n\nI'm a high-level sniper and I finish my snipes in 2 days or less.\n\nDiscord @disvical`,
-    pt:`Olá, eu sou o Disvical, prazer em te conhecer!\n\nSou um sniper de alto nível e finalizo meus snipes em 2 dias ou menos.\n\nDiscord @disvical`,
-    kr:`안녕하세요, 저는 Disvical입니다.\n\n빠르게 작업합니다.\n\nDiscord @disvical`
+const translations = {
+    en:{
+        aboutTitle:"About me",
+        aboutText:`Hi, I'm Disvical, nice to meet you!\n\nI'm a high-level sniper and I finish my snipes in 2 days or less.\n\nDiscord @disvical`,
+        pricesTitle:"Prices",
+        pricesText:`--- Robux Only ---\n\nFree Category:\nGlitch Snipe: 200+ HPs (500+ for priority)\n~ 750 if less than 200 HPs\n\nDreamspace Snipe: 200+ HPs (500+ for priority)\n~ 750 if less than 200 HPs\n\nSingularity Snipe: 20+ HPs (100+ to post on yt)\n~ all free! :)\n\nCyberspace Snipe:\nNot available yet\n\nMari Snipe:\n20 = Void Coin (After tax)\n10 = Lucky Penny (After tax)\n\nPriority Category:\n1000 = Instant Snipe\n\nExpect to have your snipe done in 1-2 days\nI usually finish a singularity snipe in less than 1 hour\nSingularity snipes will always have priority`,
+        viewPrices:"View Prices",
+        back:"Back"
+    },
+    pt:{
+        aboutTitle:"Sobre mim",
+        aboutText:`Olá, eu sou o Disvical, prazer em te conhecer!\n\nSou um sniper de alto nível e finalizo meus snipes em 2 dias ou menos.\n\nDiscord @disvical`,
+        pricesTitle:"Preços",
+        pricesText:`--- Apenas Robux ---\n\nCategoria Grátis:\nGlitch Snipe: 200+ HPs (500+ para prioridade)\n~ 750 se menos de 200 HPs\n\nDreamspace Snipe: 200+ HPs (500+ para prioridade)\n~ 750 se menos de 200 HPs\n\nSingularity Snipe: 20+ HPs (100+ para postar no yt)\n~ tudo grátis! :)\n\nCyberspace Snipe:\nAinda não disponível\n\nMari Snipe:\n20 = Void Coin (Após taxa)\n10 = Lucky Penny (Após taxa)\n\nCategoria Prioridade:\n1000 = Snipe Instantâneo\n\nEspere ter seu snipe feito em 1-2 dias\nEu geralmente termino um singularity snipe em menos de 1 hora\nSnipes de singularity sempre terão prioridade`,
+        viewPrices:"Ver Preços",
+        back:"Voltar"
+    },
+    es:{
+        aboutTitle:"Sobre mí",
+        aboutText:`¡Hola, soy Disvical, un placer conocerte!\n\nSoy un sniper de alto nivel y termino mis snipes en 2 días o menos.\n\nDiscord @disvical`,
+        pricesTitle:"Precios",
+        pricesText:`--- Solo Robux ---\n\nCategoría Gratis:\nGlitch Snipe: 200+ HPs (500+ para prioridad)\n~ 750 si menos de 200 HPs\n\nDreamspace Snipe: 200+ HPs (500+ para prioridad)\n~ 750 si menos de 200 HPs\n\nSingularity Snipe: 20+ HPs (100+ para publicar en yt)\n~ ¡todo gratis! :)\n\nCyberspace Snipe:\nAún no disponible\n\nMari Snipe:\n20 = Void Coin (Después de impuestos)\n10 = Lucky Penny (Después de impuestos)\n\nCategoría Prioridad:\n1000 = Snipe Instantáneo\n\nEspera tener tu snipe hecho en 1-2 días\nNormalmente termino un singularity snipe en menos de 1 hora\nLos snipes de singularity siempre tendrán prioridad`,
+        viewPrices:"Ver Precios",
+        back:"Volver"
+    },
+    de:{
+        aboutTitle:"Über mich",
+        aboutText:`Hi, ich bin Disvical, freut mich!\n\nIch bin ein High-Level-Sniper und beende meine Snipes in 2 Tagen oder weniger.\n\nDiscord @disvical`,
+        pricesTitle:"Preise",
+        pricesText:`--- Nur Robux ---\n\nKostenlose Kategorie:\nGlitch Snipe: 200+ HPs (500+ für Priorität)\n~ 750 wenn weniger als 200 HPs\n\nDreamspace Snipe: 200+ HPs (500+ für Priorität)\n~ 750 wenn weniger als 200 HPs\n\nSingularity Snipe: 20+ HPs (100+ um auf yt zu posten)\n~ alles kostenlos! :)\n\nCyberspace Snipe:\nNoch nicht verfügbar\n\nMari Snipe:\n20 = Void Coin (Nach Steuern)\n10 = Lucky Penny (Nach Steuern)\n\nPrioritätskategorie:\n1000 = Instant Snipe\n\nErwarte, dass dein Snipe in 1-2 Tagen fertig ist\nIch beende einen Singularity-Snipe normalerweise in weniger als 1 Stunde\nSingularity-Snipes haben immer Priorität`,
+        viewPrices:"Preise ansehen",
+        back:"Zurück"
+    },
+    kr:{
+        aboutTitle:"소개",
+        aboutText:`안녕하세요, 저는 Disvical입니다. 만나서 반갑습니다!\n\n저는 고급 스나이퍼이며 2일 이내에 스나이프를 완료합니다.\n\nDiscord @disvical`,
+        pricesTitle:"가격",
+        pricesText:`--- Robux 전용 ---\n\n무료 카테고리:\nGlitch Snipe: 200+ HPs (우선순위 500+)\n~ 200 HPs 미만인 경우 750\n\nDreamspace Snipe: 200+ HPs (우선순위 500+)\n~ 200 HPs 미만인 경우 750\n\nSingularity Snipe: 20+ HPs (yt에 게시하려면 100+)\n~ 모두 무료! :)\n\nCyberspace Snipe:\n아직 사용 불가\n\nMari Snipe:\n20 = Void Coin (세금 후)\n10 = Lucky Penny (세금 후)\n\n우선순위 카테고리:\n1000 = 즉시 스나이프\n\n1-2일 내에 스나이프가 완료될 것으로 예상하세요\n저는 보통 singularity snipe를 1시간 이내에 완료합니다\nSingularity snipes는 항상 우선순위를 갖습니다`,
+        viewPrices:"가격 보기",
+        back:"뒤로"
+    },
+    jp:{
+        aboutTitle:"自己紹介",
+        aboutText:`こんにちは、Disvicalです。はじめまして！\n\n私はハイレベルなスナイパーで、2日以内にスナイプを完了します。\n\nDiscord @disvical`,
+        pricesTitle:"価格",
+        pricesText:`--- Robux のみ ---\n\n無料カテゴリ:\nGlitch Snipe: 200+ HPs (優先 500+)\n~ 200 HPs 未満の場合は 750\n\nDreamspace Snipe: 200+ HPs (優先 500+)\n~ 200 HPs 未満の場合は 750\n\nSingularity Snipe: 20+ HPs (yt に投稿するには 100+)\n~ すべて無料! :)\n\nCyberspace Snipe:\nまだ利用できません\n\nMari Snipe:\n20 = Void Coin (税込)\n10 = Lucky Penny (税込)\n\n優先カテゴリ:\n1000 = 即時スナイプ\n\n1〜2 日以内にスナイプが完了することを期待してください\n通常、singularity snipe は 1 時間以内に完了します\nSingularity snipes は常に優先されます`,
+        viewPrices:"価格を見る",
+        back:"戻る"
+    },
+    cn:{
+        aboutTitle:"关于我",
+        aboutText:`你好，我是 Disvical，很高兴认识你！\n\n我是一名高级狙击手，会在 2 天内完成狙击。\n\nDiscord @disvical`,
+        pricesTitle:"价格",
+        pricesText:`--- 仅限 Robux ---\n\n免费类别:\nGlitch Snipe: 200+ HPs (优先 500+)\n~ 少于 200 HPs 则 750\n\nDreamspace Snipe: 200+ HPs (优先 500+)\n~ 少于 200 HPs 则 750\n\nSingularity Snipe: 20+ HPs (发布到 yt 需要 100+)\n~ 全部免费! :)\n\nCyberspace Snipe:\n暂不可用\n\nMari Snipe:\n20 = Void Coin (税后)\n10 = Lucky Penny (税后)\n\n优先类别:\n1000 = 即时狙击\n\n预计在 1-2 天内完成您的狙击\n我通常在 1 小时内完成 singularity snipe\nSingularity snipes 将始终优先`,
+        viewPrices:"查看价格",
+        back:"返回"
+    }
 };
-
-const pricesText = `--- Robux Only ---\n\nFree Category:\nGlitch Snipe: 200+ HPs (500+ for priority)\n~ 750 if less than 200 HPs\n\nDreamspace Snipe: 200+ HPs (500+ for priority)\n~ 750 if less than 200 HPs\n\nSingularity Snipe: 20+ HPs (100+ to post on yt)\n~ all free! :)\n\nCyberspace Snipe:\nNot available yet\n\nMari Snipe:\n20 = Void Coin (After tax)\n10 = Lucky Penny (After tax)\n\nPriority Category:\n1000 = Instant Snipe\n\nExpect to have your snipe done in 1-2 days\nI usually finish a singularity snipe in less than 1 hour\nSingularity snipes will always have priority`;
 
 function openAbout(){
     modal.classList.add("active");
     setLang(select.value);
 }
-
 function closeAbout(){modal.classList.remove("active");}
 
 function setLang(lang){
-    text.innerHTML = aboutData[lang].replace(/\n/g,'<br>') +
-        `<br><br><span class="price-btn" onclick="togglePrices()">View Prices</span>`;
-    title.innerText = "About me";
+    const t = translations[lang];
+    text.innerHTML = `
+        <div class="text-content">${t.aboutText.replace(/\n/g,'<br>')}</div>
+        <div class="price-btn-wrapper">
+            <span class="price-btn" onclick="togglePrices()">${t.viewPrices}</span>
+        </div>
+    `;
+    title.innerText = t.aboutTitle;
 }
 
 function togglePrices(){
-    text.innerHTML = pricesText.replace(/\n/g,'<br>') +
-        `<br><br><span class="price-btn" onclick="setLang(select.value)">Back</span>`;
-    title.innerText = "Prices";
+    const lang = select.value;
+    const t = translations[lang];
+    text.innerHTML = `
+        <div class="text-content">${t.pricesText.replace(/\n/g,'<br>')}</div>
+        <div class="price-btn-wrapper">
+            <span class="price-btn" onclick="setLang('${lang}')">${t.back}</span>
+        </div>
+    `;
+    title.innerText = t.pricesTitle;
 }
 
 select.addEventListener('change', () => setLang(select.value));
@@ -725,10 +738,8 @@ document.querySelectorAll('.card').forEach(card => {
 
     card.addEventListener('mousemove', e => {
         const r = card.getBoundingClientRect();
-        const x = ((e.clientX - r.left) / r.width) * 100;
-        const y = ((e.clientY - r.top) / r.height) * 100;
-        glow.style.setProperty('--mx', x + '%');
-        glow.style.setProperty('--my', y + '%');
+        glow.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+        glow.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
     });
 
     card.addEventListener('click', () => {
@@ -737,62 +748,10 @@ document.querySelectorAll('.card').forEach(card => {
 
         const action = card.dataset.action;
         const link = card.dataset.link;
-
         if (action === 'about') openAbout();
         else if (link) window.open(link, '_blank');
     });
 });
-
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = innerWidth; canvas.height = innerHeight;
-
-let particles = [];
-for (let i = 0; i < 100; i++) {
-    particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        r: Math.random()*2.5+.5,
-        dx: (Math.random()-.5)*.5,
-        dy: (Math.random()-.5)*.5,
-        hue: Math.random()>.5 ? '#ff4fa3' : '#fff',
-        alpha: Math.random()*.5+.2
-    });
-}
-
-function animateParticles(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for (let i=0;i<particles.length;i++){
-        for (let j=i+1;j<particles.length;j++){
-            const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
-            const d=Math.sqrt(dx*dx+dy*dy);
-            if (d<130){
-                ctx.strokeStyle=`rgba(255,79,163,${(1-d/130)*.16})`;
-                ctx.lineWidth=.5;
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x,particles[i].y);
-                ctx.lineTo(particles[j].x,particles[j].y);
-                ctx.stroke();
-            }
-        }
-    }
-    for (let p of particles){
-        p.x+=p.dx; p.y+=p.dy;
-        if (p.x<0||p.x>canvas.width)p.dx*=-1;
-        if (p.y<0||p.y>canvas.height)p.dy*=-1;
-        ctx.fillStyle=p.hue;
-        ctx.globalAlpha=p.alpha;
-        ctx.shadowBlur=8;
-        ctx.shadowColor=p.hue;
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
-    }
-    ctx.globalAlpha=1;
-    ctx.shadowBlur=0;
-    requestAnimationFrame(animateParticles);
-}
-animateParticles();
 
 const tcanvas=document.getElementById("cursorTrail");
 const tctx=tcanvas.getContext("2d");
@@ -807,11 +766,7 @@ document.addEventListener("mousemove", e => {
     mouse.x=e.clientX; mouse.y=e.clientY;
     if (!mouseVisible) mouseVisible = true;
 });
-
-document.addEventListener("mouseleave", () => {
-    mouseVisible = false;
-});
-
+document.addEventListener("mouseleave", () => {mouseVisible = false;});
 document.addEventListener("mousedown", () => {
     for (let i=0;i<15;i++){
         bursts.push({
@@ -825,11 +780,7 @@ document.addEventListener("mousedown", () => {
 
 function drawCursor(){
     tctx.clearRect(0,0,tcanvas.width,tcanvas.height);
-
-    if (!mouseVisible) {
-        requestAnimationFrame(drawCursor);
-        return;
-    }
+    if (!mouseVisible){requestAnimationFrame(drawCursor);return;}
 
     points.push({x:mouse.x,y:mouse.y});
     if (points.length>25)points.shift();
@@ -838,13 +789,12 @@ function drawCursor(){
         let p=points[i];
         let a=i/points.length;
         tctx.beginPath();
-        tctx.fillStyle=`rgba(255,79,163,${a})`;
+        tctx.fillStyle=`rgba(255,255,255,${a})`;
         tctx.shadowBlur=20;
-        tctx.shadowColor="#ff4fa3";
+        tctx.shadowColor="#fff";
         tctx.arc(p.x,p.y,6*a+1,0,Math.PI*2);
         tctx.fill();
     }
-
     for (let i=bursts.length-1;i>=0;i--){
         let b=bursts[i];
         b.x+=b.vx; b.y+=b.vy;
@@ -854,23 +804,22 @@ function drawCursor(){
         tctx.beginPath();
         tctx.fillStyle=`rgba(255,255,255,${b.life})`;
         tctx.shadowBlur=16;
-        tctx.shadowColor="#ff4fa3";
+        tctx.shadowColor="#fff";
         tctx.arc(b.x,b.y,3*b.life,0,Math.PI*2);
         tctx.fill();
     }
-
     tctx.beginPath();
     tctx.fillStyle="#fff";
     tctx.shadowBlur=24;
-    tctx.shadowColor="#ff4fa3";
+    tctx.shadowColor="#fff";
     tctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
     tctx.fill();
 
     tctx.beginPath();
-    tctx.strokeStyle="rgba(255,79,163,.7)";
+    tctx.strokeStyle="rgba(255,255,255,.7)";
     tctx.lineWidth=1.5;
     tctx.shadowBlur=16;
-    tctx.shadowColor="#ff4fa3";
+    tctx.shadowColor="#fff";
     tctx.arc(mouse.x,mouse.y,14,0,Math.PI*2);
     tctx.stroke();
 
