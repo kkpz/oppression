@@ -44,9 +44,9 @@ body{
     position:absolute;
     inset:-50%;
     background:
-        radial-gradient(circle at 30% 40%, rgba(255,79,163,.4), transparent 40%),
-        radial-gradient(circle at 70% 60%, rgba(199,52,124,.4), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,.05), transparent 60%);
+        radial-gradient(circle at 30% 40%, rgba(255,79,163,.32), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(199,52,124,.32), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.04), transparent 60%);
     animation:bgMove 15s ease-in-out infinite;
     filter:blur(60px);
 }
@@ -62,8 +62,8 @@ body{
     position:absolute;
     inset:0;
     background-image:
-        linear-gradient(rgba(255,79,163,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,79,163,.08) 1px, transparent 1px);
+        linear-gradient(rgba(255,79,163,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,79,163,.06) 1px, transparent 1px);
     background-size:50px 50px;
     animation:gridMove 4s linear infinite;
     mask-image:radial-gradient(ellipse at center, black 20%, transparent 80%);
@@ -85,7 +85,7 @@ body{
 #cursorTrail{
     position:fixed;
     inset:0;
-    z-index:1000000;
+    z-index:2147483647;
     pointer-events:none;
 }
 
@@ -122,14 +122,14 @@ body{
     -webkit-background-clip:text;
     background-clip:text;
     -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 0 40px rgba(255,79,163,.8)) drop-shadow(0 0 80px rgba(255,79,163,.5));
+    filter:drop-shadow(0 0 32px rgba(255,79,163,.64)) drop-shadow(0 0 64px rgba(255,79,163,.4));
     text-transform:uppercase;
     animation:titleGlow 3s ease-in-out infinite;
 }
 
 @keyframes titleGlow{
-    0%,100%{filter:drop-shadow(0 0 40px rgba(255,79,163,.8)) drop-shadow(0 0 80px rgba(255,79,163,.5));}
-    50%{filter:drop-shadow(0 0 60px rgba(255,79,163,1)) drop-shadow(0 0 120px rgba(255,79,163,.7));}
+    0%,100%{filter:drop-shadow(0 0 32px rgba(255,79,163,.64)) drop-shadow(0 0 64px rgba(255,79,163,.4));}
+    50%{filter:drop-shadow(0 0 48px rgba(255,79,163,.8)) drop-shadow(0 0 96px rgba(255,79,163,.56));}
 }
 
 .title .sub{
@@ -213,9 +213,9 @@ body{
     inset:0;
     border-radius:24px;
     background:radial-gradient(circle 300px at var(--mx,50%) var(--my,50%),
-        rgba(255,79,163,.65) 0%,
-        rgba(255,79,163,.35) 30%,
-        rgba(255,79,163,.1) 55%,
+        rgba(255,79,163,.52) 0%,
+        rgba(255,79,163,.28) 30%,
+        rgba(255,79,163,.08) 55%,
         transparent 80%);
     pointer-events:none;
     opacity:0;
@@ -235,8 +235,8 @@ body{
     transform:translateY(-12px) scale(1.03);
     border-color:#ff4fa3;
     box-shadow:
-        0 30px 60px rgba(255,79,163,.35),
-        inset 0 0 40px rgba(255,79,163,.1);
+        0 30px 60px rgba(255,79,163,.28),
+        inset 0 0 40px rgba(255,79,163,.08);
 }
 
 .card:hover::before{opacity:1;}
@@ -255,20 +255,20 @@ body{
     align-items:center;
     justify-content:center;
     transition:all .5s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 0 30px rgba(255,79,163,.2);
+    box-shadow:0 0 24px rgba(255,79,163,.16);
 }
 
 .card:hover .icon{
     transform:scale(1.15) rotate(-8deg);
     background:linear-gradient(145deg, rgba(255,79,163,.4), rgba(199,52,124,.2));
-    box-shadow:0 0 50px rgba(255,79,163,.6);
+    box-shadow:0 0 40px rgba(255,79,163,.48);
 }
 
 .card .icon svg{
     width:40px;
     height:40px;
     stroke:#fff;
-    filter:drop-shadow(0 0 10px rgba(255,79,163,.8));
+    filter:drop-shadow(0 0 8px rgba(255,79,163,.64));
     transition:transform .5s ease;
 }
 
@@ -284,13 +284,13 @@ body{
     letter-spacing:4px;
     text-transform:uppercase;
     color:#fff;
-    text-shadow:0 0 15px rgba(255,79,163,.6);
+    text-shadow:0 0 12px rgba(255,79,163,.48);
     transition:all .4s;
 }
 
 .card:hover .name{
     color:#ff8ac4;
-    text-shadow:0 0 25px rgba(255,79,163,1);
+    text-shadow:0 0 20px rgba(255,79,163,.8);
     letter-spacing:6px;
 }
 
@@ -316,7 +316,7 @@ body{
     height:3px;
     background:linear-gradient(90deg, transparent, #ff4fa3, transparent);
     transition:width .5s cubic-bezier(.4,0,.2,1);
-    box-shadow:0 0 20px #ff4fa3;
+    box-shadow:0 0 16px #ff4fa3;
     z-index:2;
 }
 
@@ -331,20 +331,19 @@ body{
     max-width:calc(100vw - 40px);
     height:520px;
     max-height:calc(100vh - 40px);
-    background:linear-gradient(145deg, rgba(20,20,20,.98), rgba(5,5,5,.98));
+    background:rgba(10,10,15,.98);
     border:1px solid rgba(255,79,163,.5);
     border-radius:24px;
     padding:30px;
     z-index:999999;
     box-shadow:
         0 30px 100px rgba(0,0,0,.8),
-        0 0 80px rgba(255,79,163,.4);
+        0 0 64px rgba(255,79,163,.32);
     opacity:0;
     pointer-events:none;
     transition:all .5s cubic-bezier(.4,0,.2,1);
     display:flex;
     flex-direction:column;
-    backdrop-filter:blur(30px);
 }
 
 #aboutModal.active{
@@ -406,7 +405,7 @@ body{
 
 #aboutText::-webkit-scrollbar{width:6px;}
 #aboutText::-webkit-scrollbar-track{background:rgba(255,79,163,.05);border-radius:3px;}
-#aboutText::-webkit-scrollbar-thumb{background:#ff4fa3;border-radius:3px;box-shadow:0 0 15px #ff4fa3;}
+#aboutText::-webkit-scrollbar-thumb{background:#ff4fa3;border-radius:3px;box-shadow:0 0 12px #ff4fa3;}
 
 .modal-buttons{
     display:flex;
@@ -433,7 +432,7 @@ body{
 
 #langSelect:hover{
     border-color:#ff4fa3;
-    box-shadow:0 0 25px rgba(255,79,163,.4);
+    box-shadow:0 0 20px rgba(255,79,163,.32);
 }
 
 #langSelect option{background:#141414;color:#fff;}
@@ -462,7 +461,7 @@ button::before{
     left:50%;
     width:0;
     height:0;
-    background:radial-gradient(circle, rgba(255,79,163,.6), transparent);
+    background:radial-gradient(circle, rgba(255,79,163,.48), transparent);
     transform:translate(-50%,-50%);
     transition:all .6s ease;
     border-radius:50%;
@@ -473,7 +472,7 @@ button:hover::before{width:300px;height:300px;}
 
 button:hover{
     border-color:#ff4fa3;
-    box-shadow:0 0 30px rgba(255,79,163,.6);
+    box-shadow:0 0 24px rgba(255,79,163,.48);
     transform:translateY(-2px);
 }
 
@@ -492,16 +491,14 @@ button:active{transform:translateY(0) scale(.96);}
     letter-spacing:3px;
     text-transform:uppercase;
     color:#fff;
-    text-shadow:0 0 15px #ff4fa3;
+    text-shadow:0 0 12px #ff4fa3;
     transition:all .3s;
     font-family:"Inter",sans-serif;
-    position:relative;
-    z-index:1000001;
 }
 
 .price-btn:hover{
     background:linear-gradient(135deg, rgba(255,79,163,.5), rgba(199,52,124,.3));
-    box-shadow:0 0 40px rgba(255,79,163,.8);
+    box-shadow:0 0 32px rgba(255,79,163,.64);
     transform:translateY(-3px) scale(1.05);
 }
 
@@ -683,7 +680,7 @@ function animateParticles(){
             const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
             const d=Math.sqrt(dx*dx+dy*dy);
             if (d<130){
-                ctx.strokeStyle=`rgba(255,79,163,${(1-d/130)*.2})`;
+                ctx.strokeStyle=`rgba(255,79,163,${(1-d/130)*.16})`;
                 ctx.lineWidth=.5;
                 ctx.beginPath();
                 ctx.moveTo(particles[i].x,particles[i].y);
@@ -698,7 +695,7 @@ function animateParticles(){
         if (p.y<0||p.y>canvas.height)p.dy*=-1;
         ctx.fillStyle=p.hue;
         ctx.globalAlpha=p.alpha;
-        ctx.shadowBlur=10;
+        ctx.shadowBlur=8;
         ctx.shadowColor=p.hue;
         ctx.beginPath();
         ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
@@ -755,7 +752,7 @@ function drawCursor(){
         let a=i/points.length;
         tctx.beginPath();
         tctx.fillStyle=`rgba(255,79,163,${a})`;
-        tctx.shadowBlur=25;
+        tctx.shadowBlur=20;
         tctx.shadowColor="#ff4fa3";
         tctx.arc(p.x,p.y,6*a+1,0,Math.PI*2);
         tctx.fill();
@@ -769,7 +766,7 @@ function drawCursor(){
         if (b.life<=0){bursts.splice(i,1);continue;}
         tctx.beginPath();
         tctx.fillStyle=`rgba(255,255,255,${b.life})`;
-        tctx.shadowBlur=20;
+        tctx.shadowBlur=16;
         tctx.shadowColor="#ff4fa3";
         tctx.arc(b.x,b.y,3*b.life,0,Math.PI*2);
         tctx.fill();
@@ -777,7 +774,7 @@ function drawCursor(){
 
     tctx.beginPath();
     tctx.fillStyle="#fff";
-    tctx.shadowBlur=30;
+    tctx.shadowBlur=24;
     tctx.shadowColor="#ff4fa3";
     tctx.arc(mouse.x,mouse.y,5,0,Math.PI*2);
     tctx.fill();
@@ -785,7 +782,7 @@ function drawCursor(){
     tctx.beginPath();
     tctx.strokeStyle="rgba(255,79,163,.7)";
     tctx.lineWidth=1.5;
-    tctx.shadowBlur=20;
+    tctx.shadowBlur=16;
     tctx.shadowColor="#ff4fa3";
     tctx.arc(mouse.x,mouse.y,14,0,Math.PI*2);
     tctx.stroke();
